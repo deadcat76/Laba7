@@ -1,0 +1,69 @@
+﻿<Window x:Class="laba7.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:laba7"
+        mc:Ignorable="d"
+        Title="COVID-19" Height="448" Width="579" Topmost="True">
+    <Window.Resources>
+        <local:DLSToBackgroundConverter x:Key="MyConverter"/>
+    </Window.Resources>
+    <Grid Height="438" VerticalAlignment="Top" Margin="0,0,10,0">
+        <ListView HorizontalAlignment="Left" Height="322" Margin="26,30,0,0" VerticalAlignment="Top" Width="202" ItemsSource="{Binding Teachers}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Border Margin="2" BorderThickness="1" BorderBrush="SteelBlue" CornerRadius="4" Width="180">
+                        <Grid Margin="2">
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Row="0" FontWeight="Bold" Text="{Binding Name}"/>
+                            <TextBlock Grid.Row="1" Text="{Binding Institute}"/>
+                            <Rectangle Grid.Row="0" 
+                                       Grid.Column="1"
+                                       Grid.RowSpan="2"
+                                       Fill="{Binding DistantLearningService, Converter={StaticResource MyConverter}}"/>
+                            <TextBlock Grid.Row="0" 
+                                       Grid.Column="1"
+                                       Grid.RowSpan="2"
+                                       TextAlignment="Center"
+                                       Text="{Binding DistantLearningService}"
+                                       FontWeight="Bold"/>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <TextBox HorizontalAlignment="Left" Height="39" Margin="402,33,0,0" Text="{Binding NewTeacher.Name}" TextWrapping="Wrap" VerticalAlignment="Top" Width="134"/>
+        <Button Content="Добавить" Command="{Binding AddCommand}" HorizontalAlignment="Left" Height="39" Margin="402,165,0,0" VerticalAlignment="Top" Width="134"/>
+        <ComboBox HorizontalAlignment="Left" Height="39" Margin="402,77,0,0" VerticalAlignment="Top" Width="134" Text="{Binding NewTeacher.Institute}">
+            <TextBlock Text="ИКИТ"/>
+            <TextBlock Text="ИНиГ"/>
+            <TextBlock Text="ПИ"/>
+            <TextBlock Text="ЮИ"/>
+        </ComboBox>
+        <ComboBox HorizontalAlignment="Left" Height="39" Margin="402,121,0,0" VerticalAlignment="Top" Width="134" Text="{Binding NewTeacher.DistantLearningService}">
+            <TextBlock Text="Discord"/>
+            <TextBlock Text="WebinarSFU"/>
+            <TextBlock Text="Skype"/>
+            <TextBlock Text="Zoom"/>
+        </ComboBox>
+        <Label Content="ФИО:" HorizontalAlignment="Left" Margin="260,40,0,0" VerticalAlignment="Top"/>
+        <Label Content="Институт:" HorizontalAlignment="Left" Margin="260,84,0,0" VerticalAlignment="Top"/>
+        <Label Content="Сервис" HorizontalAlignment="Left" Margin="260,128,0,0" VerticalAlignment="Top"/>
+        <GroupBox Header="Сотрудники СФУ" HorizontalAlignment="Left" Height="392" Margin="11,8,0,0" VerticalAlignment="Top" Width="232"/>
+        <GroupBox Header="Добавить нового сотрудника" HorizontalAlignment="Left" Height="212" Margin="248,8,0,0" VerticalAlignment="Top" Width="301"/>
+        <Button Command ="{Binding ShowTopDLS}" Content="TOP 3 ==&gt;" HorizontalAlignment="Left" Height="32" Margin="26,357,0,0" VerticalAlignment="Top" Width="202"/>
+        <GroupBox Header="TOP 3" HorizontalAlignment="Left" Height="180" Margin="248,220,0,0" VerticalAlignment="Top" Width="301">
+            <ListView ItemsSource="{Binding topDLS}" HorizontalAlignment="Left" Height="137" VerticalAlignment="Center" Width="287">
+            </ListView>
+        </GroupBox>
+
+    </Grid>
+</Window>
